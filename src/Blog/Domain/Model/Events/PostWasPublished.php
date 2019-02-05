@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: uic
+ * User: Farso
  * Date: 2/4/19
  * Time: 12:14 PM
  */
@@ -9,7 +9,7 @@
 namespace Blog\Domain\Model\Events;
 
 
-class PostWasPublished
+class PostWasPublished implements DomainEventInterface
 {
     private $postId;
     private $authorId;

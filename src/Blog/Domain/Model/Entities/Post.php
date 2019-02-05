@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: uic
+ * User: Farso
  * Date: 2/4/19
  * Time: 12:50 PM
  */
@@ -9,6 +9,7 @@
 namespace Blog\Domain\Model\Entities;
 
 
+use Blog\Domain\Model\Events\DomainEventPublisher;
 use Blog\Domain\Model\Events\PostWasPublished;
 use Blog\Domain\TriggerEventsTrait;
 
@@ -72,9 +73,14 @@ class Post
     public function publish(Author $author): self
     {
         $this->status = self::POST_STATUS_PUBLISHED;
-        $this->trigger(
+
+        DomainEventPublisher::instance()->publish(
             new PostWasPublished($this->id, $author->getId())
         );
+
+/*        $this->trigger(
+            new PostWasPublished($this->id, $author->getId())
+        );*/
 
         return $this;
     }
